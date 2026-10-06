@@ -1,0 +1,836 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f4f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 650px;
+
+            display: flex;
+
+            background: white;
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.12);
+        }
+
+        /* ================= LEFT SIDE ================= */
+
+        .left-section {
+            width: 45%;
+
+            padding: 60px 45px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #6c5ce7,
+                    #8e44ad,
+                    #e84393
+                );
+
+            position: relative;
+
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-section::before {
+            content: "";
+
+            position: absolute;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.10);
+
+            top: -130px;
+            right: -130px;
+        }
+
+        .left-section::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.08);
+
+            bottom: -100px;
+            left: -80px;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: bold;
+
+            position: absolute;
+            top: 35px;
+            left: 45px;
+        }
+
+        .left-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .left-content h1 {
+            font-size: 48px;
+            line-height: 1.1;
+
+            margin-bottom: 20px;
+        }
+
+        .left-content p {
+            font-size: 16px;
+            line-height: 1.7;
+
+            color: rgba(255,255,255,0.85);
+
+            max-width: 350px;
+        }
+
+        .features {
+            margin-top: 35px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+
+            margin: 15px 0;
+
+            font-size: 14px;
+        }
+
+        .check {
+            width: 30px;
+            height: 30px;
+
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: rgba(255,255,255,0.18);
+
+            margin-right: 12px;
+        }
+
+
+        /* ================= RIGHT SIDE ================= */
+
+        .right-section {
+            width: 55%;
+
+            padding: 50px 55px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-section h2 {
+            font-size: 32px;
+
+            color: #222;
+
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-row {
+            display: flex;
+
+            gap: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #444;
+
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+
+            height: 48px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            padding: 0 15px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.3s;
+
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #7c4dff;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(124,77,255,0.10);
+        }
+
+        /* ================= PASSWORD ================= */
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-container input {
+            padding-right: 45px;
+        }
+
+        .show-password {
+            position: absolute;
+
+            right: 14px;
+            top: 14px;
+
+            cursor: pointer;
+
+            color: #888;
+
+            font-size: 18px;
+        }
+
+        /* Password strength */
+
+        .strength {
+            display: flex;
+
+            gap: 4px;
+
+            margin-top: 7px;
+        }
+
+        .strength span {
+            height: 4px;
+
+            flex: 1;
+
+            border-radius: 5px;
+
+            background: #ddd;
+        }
+
+        .strength-text {
+            font-size: 11px;
+
+            color: #999;
+
+            margin-top: 4px;
+        }
+
+        /* ================= TERMS ================= */
+
+        .terms {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 8px;
+
+            font-size: 12px;
+
+            color: #777;
+
+            margin: 10px 0 20px;
+
+            line-height: 1.5;
+        }
+
+        .terms input {
+            margin-top: 3px;
+
+            accent-color: #7c4dff;
+        }
+
+        .terms a {
+            color: #7c4dff;
+
+            text-decoration: none;
+
+            font-weight: 600;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .register-btn {
+            width: 100%;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6c5ce7,
+                    #e84393
+                );
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            box-shadow:
+                0 8px 20px rgba(108,92,231,0.25);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(108,92,231,0.35);
+        }
+
+        /* ================= LOGIN ================= */
+
+        .login-text {
+            text-align: center;
+
+            margin-top: 22px;
+
+            font-size: 13px;
+
+            color: #777;
+        }
+
+        .login-text a {
+            color: #6c5ce7;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .main-container {
+                flex-direction: column;
+            }
+
+            .left-section,
+            .right-section {
+                width: 100%;
+            }
+
+            .left-section {
+                min-height: 350px;
+
+                padding: 45px;
+            }
+
+            .left-content h1 {
+                font-size: 38px;
+            }
+
+            .features {
+                display: none;
+            }
+
+            .right-section {
+                padding: 45px;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .main-container {
+                border-radius: 20px;
+            }
+
+            .left-section {
+                min-height: 280px;
+
+                padding: 35px 25px;
+            }
+
+            .brand {
+                left: 25px;
+                top: 25px;
+            }
+
+            .left-content h1 {
+                font-size: 32px;
+            }
+
+            .right-section {
+                padding: 35px 25px;
+            }
+
+            .form-row {
+                flex-direction: column;
+
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <!-- ================= LEFT ================= -->
+
+        <div class="left-section">
+
+            <div class="brand">
+                ✦ Nova
+            </div>
+
+            <div class="left-content">
+
+                <h1>
+                    Start your<br>
+                    journey.
+                </h1>
+
+                <p>
+                    Create your account and unlock
+                    a world of possibilities. It only
+                    takes a few minutes to get started.
+                </p>
+
+                <div class="features">
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        Free account creation
+                    </div>
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        Secure & protected
+                    </div>
+
+                    <div class="feature">
+                        <span class="check">✓</span>
+                        Access from anywhere
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RIGHT ================= -->
+
+        <div class="right-section">
+
+            <h2>Create Account</h2>
+
+            <p class="subtitle">
+                Fill in your details to get started.
+            </p>
+
+
+            <form onsubmit="registerUser(event)">
+
+                <!-- First + Last Name -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label>First Name</label>
+
+                        <input
+                            type="text"
+                            placeholder="John"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Last Name</label>
+
+                        <input
+                            type="text"
+                            placeholder="Doe"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        placeholder="john@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div class="form-group">
+
+                    <label>Phone Number</label>
+
+                    <input
+                        type="tel"
+                        placeholder="+91 98765 43210"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <div class="password-container">
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a strong password"
+                            oninput="checkStrength()"
+                            required
+                        >
+
+                        <span
+                            class="show-password"
+                            onclick="togglePassword('password','eye1')"
+                            id="eye1"
+                        >
+                            👁
+                        </span>
+
+                    </div>
+
+                    <div class="strength">
+
+                        <span id="s1"></span>
+                        <span id="s2"></span>
+                        <span id="s3"></span>
+                        <span id="s4"></span>
+
+                    </div>
+
+                    <div
+                        class="strength-text"
+                        id="strengthText"
+                    >
+                        Password strength
+                    </div>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label>Confirm Password</label>
+
+                    <div class="password-container">
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Re-enter your password"
+                            required
+                        >
+
+                        <span
+                            class="show-password"
+                            onclick="togglePassword('confirmPassword','eye2')"
+                            id="eye2"
+                        >
+                            👁
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Terms -->
+
+                <label class="terms">
+
+                    <input type="checkbox" required>
+
+                    <span>
+                        I agree to the
+                        <a href="#">Terms & Conditions</a>
+                        and
+                        <a href="#">Privacy Policy</a>.
+                    </span>
+
+                </label>
+
+
+                <!-- Button -->
+
+                <button
+                    type="submit"
+                    class="register-btn"
+                >
+                    Create My Account →
+                </button>
+
+            </form>
+
+
+            <!-- Login -->
+
+            <div class="login-text">
+
+                Already have an account?
+
+                <a href="#">
+                    Sign In
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* ================= PASSWORD SHOW/HIDE ================= */
+
+        function togglePassword(inputId, eyeId) {
+
+            const input =
+                document.getElementById(inputId);
+
+            const eye =
+                document.getElementById(eyeId);
+
+            if (input.type === "password") {
+
+                input.type = "text";
+
+                eye.textContent = "🙈";
+
+            } else {
+
+                input.type = "password";
+
+                eye.textContent = "👁";
+
+            }
+        }
+
+
+        /* ================= PASSWORD STRENGTH ================= */
+
+        function checkStrength() {
+
+            const password =
+                document.getElementById("password").value;
+
+            const bars = [
+                document.getElementById("s1"),
+                document.getElementById("s2"),
+                document.getElementById("s3"),
+                document.getElementById("s4")
+            ];
+
+            const text =
+                document.getElementById("strengthText");
+
+            let strength = 0;
+
+            if (password.length >= 6)
+                strength++;
+
+            if (password.length >= 8)
+                strength++;
+
+            if (/[A-Z]/.test(password))
+                strength++;
+
+            if (/[0-9!@#$%^&*]/.test(password))
+                strength++;
+
+            bars.forEach((bar, index) => {
+
+                if (index < strength) {
+
+                    bar.style.background =
+                        strength <= 1
+                            ? "#ff4757"
+                            : strength === 2
+                            ? "#ffa502"
+                            : strength === 3
+                            ? "#2ed573"
+                            : "#00b894";
+
+                } else {
+
+                    bar.style.background = "#ddd";
+
+                }
+
+            });
+
+            if (strength === 0) {
+
+                text.textContent =
+                    "Password strength";
+
+            } else if (strength === 1) {
+
+                text.textContent =
+                    "Weak password";
+
+            } else if (strength === 2) {
+
+                text.textContent =
+                    "Fair password";
+
+            } else if (strength === 3) {
+
+                text.textContent =
+                    "Good password";
+
+            } else {
+
+                text.textContent =
+                    "Strong password";
+
+            }
+        }
+
+
+        /* ================= REGISTER ================= */
+
+        function registerUser(event) {
+
+            event.preventDefault();
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+
+                alert("Passwords do not match!");
+
+                return;
+            }
+
+            alert(
+                "🎉 Account created successfully!"
+            );
+        }
+
+    </script>
+
+</body>
+</html>
+```
